@@ -1,0 +1,14 @@
+#MacOS
+.DS_Store
+
+#Android
+*.jks
+*.apk
+
+# Android Studio / Gradle
+*.iml
+.gradle
+/local.properties
+/.idea
+/build
+/captures
