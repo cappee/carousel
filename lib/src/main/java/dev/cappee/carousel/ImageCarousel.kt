@@ -49,7 +49,6 @@ class ImageCarousel(
     private lateinit var carouselView: View
     private lateinit var recyclerView: RecyclerView
     private lateinit var textViewCaption: TextView
-    private lateinit var imageViewItem: ImageView
     private lateinit var previousButtonContainer: FrameLayout
     private lateinit var nextButtonContainer: FrameLayout
     private lateinit var snapHelper: SnapHelper
@@ -189,13 +188,6 @@ class ImageCarousel(
             field = value
 
             recyclerView.background = carouselBackground
-        }
-
-    var imagePlaceholder: Drawable? = null
-        set(value) {
-            field = value
-
-            initAdapter()
         }
 
     @LayoutRes
@@ -367,7 +359,6 @@ class ImageCarousel(
 
         recyclerView = carouselView.findViewById(R.id.recyclerView)
         textViewCaption = carouselView.findViewById(R.id.textViewCaption)
-        imageViewItem = carouselView.findViewById(imageViewId)
         previousButtonContainer = carouselView.findViewById(R.id.previousButtonContainer)
         nextButtonContainer = carouselView.findViewById(R.id.nextButtonContainer)
 
@@ -378,7 +369,6 @@ class ImageCarousel(
                             scalingFactor = this@ImageCarousel.scalingFactor
                         }
         recyclerView.setHasFixedSize(true)
-        imageViewItem.setImageDrawable(imagePlaceholder)
 
         // For marquee effect
         textViewCaption.isSelected = true
@@ -436,10 +426,6 @@ class ImageCarousel(
                 carouselBackground = getDrawable(
                         R.styleable.ImageCarousel_carouselBackground
                 ) ?: ColorDrawable(Color.parseColor("#333333"))
-
-                imagePlaceholder = getDrawable(
-                        R.styleable.ImageCarousel_imagePlaceholder
-                ) ?: ContextCompat.getDrawable(context, R.drawable.placeholder)
 
                 itemLayout = getResourceId(
                         R.styleable.ImageCarousel_itemLayout,

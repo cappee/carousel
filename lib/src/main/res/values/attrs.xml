@@ -18,7 +18,6 @@
             <enum name="centerInside" value="7" />
         </attr>
         <attr name="carouselBackground" format="reference|color" />
-        <attr name="imagePlaceholder" format="reference|color" />
         <attr name="itemLayout" format="reference" />
         <attr name="imageViewId" format="reference" />
         <attr name="previousButtonLayout" format="reference" />
