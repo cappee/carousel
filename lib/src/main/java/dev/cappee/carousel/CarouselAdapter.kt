@@ -1,7 +1,6 @@
 package dev.cappee.carousel
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +8,8 @@ import android.view.ViewTreeObserver
 import android.widget.ImageView
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
-
 
 class CarouselAdapter(
         private val context: Context,
@@ -21,8 +19,7 @@ class CarouselAdapter(
         @LayoutRes private val itemLayout: Int,
         @IdRes private val imageViewId: Int,
         var listener: OnItemClickListener? = null,
-        private val imageScaleType: ImageView.ScaleType,
-        private val imagePlaceholder: Drawable?
+        private val imageScaleType: ImageView.ScaleType
 ) : RecyclerView.Adapter<CarouselAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View, imageViewId: Int) : RecyclerView.ViewHolder(itemView) {
@@ -59,14 +56,9 @@ class CarouselAdapter(
             }
         }
 
-
         // Init views
         holder.img.scaleType = imageScaleType
-
-        Picasso.get()
-            .load(item.imageDrawable!!)
-            .placeholder(imagePlaceholder!!)
-            .into(holder.img)
+        holder.img.setImageDrawable(ContextCompat.getDrawable(context, item.imageDrawable!!))
 
         // Init start and end offsets
         if (carouselType == CarouselType.SHOWCASE) {

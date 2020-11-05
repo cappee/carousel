@@ -49,8 +49,7 @@ class ImageCarousel(
     private lateinit var carouselView: View
     private lateinit var recyclerView: RecyclerView
     private lateinit var textViewCaption: TextView
-    private lateinit var viewTopShadow: View
-    private lateinit var viewBottomShadow: View
+    private lateinit var imageViewItem: ImageView
     private lateinit var previousButtonContainer: FrameLayout
     private lateinit var nextButtonContainer: FrameLayout
     private lateinit var snapHelper: SnapHelper
@@ -368,8 +367,9 @@ class ImageCarousel(
 
         recyclerView = carouselView.findViewById(R.id.recyclerView)
         textViewCaption = carouselView.findViewById(R.id.textViewCaption)
-        previousButtonContainer = carouselView.findViewById(R.id.previous_button_container)
-        nextButtonContainer = carouselView.findViewById(R.id.next_button_container)
+        imageViewItem = carouselView.findViewById(imageViewId)
+        previousButtonContainer = carouselView.findViewById(R.id.previousButtonContainer)
+        nextButtonContainer = carouselView.findViewById(R.id.nextButtonContainer)
 
         recyclerView.layoutManager =
                 CarouselLinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -378,6 +378,7 @@ class ImageCarousel(
                             scalingFactor = this@ImageCarousel.scalingFactor
                         }
         recyclerView.setHasFixedSize(true)
+        imageViewItem.setImageDrawable(imagePlaceholder)
 
         // For marquee effect
         textViewCaption.isSelected = true
@@ -527,8 +528,7 @@ class ImageCarousel(
                 itemLayout = itemLayout,
                 imageViewId = imageViewId,
                 listener = onItemClickListener,
-                imageScaleType = imageScaleType,
-                imagePlaceholder = imagePlaceholder
+                imageScaleType = imageScaleType
         )
         recyclerView.adapter = adapter
 
