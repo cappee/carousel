@@ -1,7 +1,15 @@
+import java.io.FileInputStream
+import org.jetbrains.kotlin.konan.properties.Properties
+
+val properties = Properties()
+properties.load(FileInputStream(file("github.properties")))
+val version = "1.2.0"
+
 plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("android.extensions")
+    id("maven-publish")
 }
 
 android {
@@ -9,11 +17,10 @@ android {
     buildToolsVersion = "30.0.2"
 
     defaultConfig {
-        applicationId = "couscous.formulaone"
         minSdkVersion(21)
         targetSdkVersion(30)
         versionCode(1)
-        versionName = "1.0"
+        versionName = "1.2.0"
     }
 
     buildTypes {
@@ -40,4 +47,42 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.10")
     implementation("androidx.core:core-ktx:1.3.2")
     implementation("com.google.android.material:material:1.2.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
+    implementation("androidx.recyclerview:recyclerview:1.1.0")
+    implementation("me.relex:circleindicator:2.1.4")
+    implementation("com.squareup.picasso:picasso:2.71828")
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GithubPackages"
+            url = uri("https://maven.pkg.github.com/cappee/carousel")
+            credentials {
+                username = properties["gpr.user"] as String
+                password = properties["gpr.key"] as String
+            }
+        }
+    }
+    publications {
+        register("gpr", MavenPublication::class) {
+            groupId = "dev.cappee"
+            artifactId = "carousel-android"
+            version = "1.2.0"
+            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+            pom {
+                withXml {
+                    val dependencies = asNode().appendNode("dependencies")
+                    configurations.implementation.get().dependencies.forEach {
+                        if (it.group != null && "unspecified" != it.name && it.version != null) {
+                            val dependencyNode = dependencies.appendNode("dependency")
+                            dependencyNode.appendNode("groupId", it.group)
+                            dependencyNode.appendNode("artifactId", it.name)
+                            dependencyNode.appendNode("version", it.version)
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

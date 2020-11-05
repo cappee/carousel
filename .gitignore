@@ -5,10 +5,13 @@
 *.jks
 *.apk
 
-# Android Studio / Gradle
+#Android Studio / Gradle
 *.iml
 .gradle
 /local.properties
 /.idea
 /build
 /captures
+
+#GitHub Packages
+lib/github.properties
