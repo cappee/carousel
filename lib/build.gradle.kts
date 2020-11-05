@@ -23,7 +23,7 @@ android {
         minSdkVersion(21)
         targetSdkVersion(30)
         versionCode(1)
-        versionName = "1.2.3"
+        versionName = "1.2.5"
     }
 
     buildTypes {
@@ -71,7 +71,7 @@ if (propsFile.exists()) {
             register("gpr", MavenPublication::class) {
                 groupId = "dev.cappee"
                 artifactId = "carousel-android"
-                version = "1.2.3"
+                version = "1.2.5"
                 artifact("$buildDir/outputs/aar/${project.name}-release.aar")
                 pom {
                     withXml {
