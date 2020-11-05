@@ -2,7 +2,10 @@ import java.io.FileInputStream
 import org.jetbrains.kotlin.konan.properties.Properties
 
 val properties = Properties()
-properties.load(FileInputStream(file("github.properties")))
+val propsFile = file("github.properties")
+if (propsFile.exists()) {
+    properties.load(FileInputStream(file("github.properties")))
+}
 
 plugins {
     id("com.android.library")
@@ -20,7 +23,7 @@ android {
         minSdkVersion(21)
         targetSdkVersion(30)
         versionCode(1)
-        versionName = "1.2.1"
+        versionName = "1.2.2"
     }
 
     buildTypes {
@@ -68,7 +71,7 @@ publishing {
         register("gpr", MavenPublication::class) {
             groupId = "dev.cappee"
             artifactId = "carousel-android"
-            version = "1.2.1"
+            version = "1.2.2"
             artifact("$buildDir/outputs/aar/${project.name}-release.aar")
             pom {
                 withXml {
