@@ -3,13 +3,13 @@ import org.jetbrains.kotlin.konan.properties.Properties
 
 val properties = Properties()
 properties.load(FileInputStream(file("github.properties")))
-val version = "1.2.0"
 
 plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("android.extensions")
     id("maven-publish")
+    id("com.github.dcendents.android-maven")
 }
 
 android {
@@ -20,7 +20,7 @@ android {
         minSdkVersion(21)
         targetSdkVersion(30)
         versionCode(1)
-        versionName = "1.2.0"
+        versionName = "1.2.1"
     }
 
     buildTypes {
@@ -68,7 +68,7 @@ publishing {
         register("gpr", MavenPublication::class) {
             groupId = "dev.cappee"
             artifactId = "carousel-android"
-            version = "1.2.0"
+            version = "1.2.1"
             artifact("$buildDir/outputs/aar/${project.name}-release.aar")
             pom {
                 withXml {
