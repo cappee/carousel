@@ -23,7 +23,7 @@ android {
         minSdkVersion(21)
         targetSdkVersion(30)
         versionCode(1)
-        versionName = "1.2.2"
+        versionName = "1.2.3"
     }
 
     buildTypes {
@@ -56,32 +56,34 @@ dependencies {
     implementation("com.squareup.picasso:picasso:2.71828")
 }
 
-publishing {
-    repositories {
-        maven {
-            name = "GithubPackages"
-            url = uri("https://maven.pkg.github.com/cappee/carousel")
-            credentials {
-                username = properties["gpr.user"] as String
-                password = properties["gpr.key"] as String
+if (propsFile.exists()) {
+    publishing {
+        repositories {
+            maven {
+                name = "GithubPackages"
+                url = uri("https://maven.pkg.github.com/cappee/carousel")
+                credentials {
+                    username = properties["gpr.user"] as String
+                    password = properties["gpr.key"] as String
+                }
             }
         }
-    }
-    publications {
-        register("gpr", MavenPublication::class) {
-            groupId = "dev.cappee"
-            artifactId = "carousel-android"
-            version = "1.2.2"
-            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
-            pom {
-                withXml {
-                    val dependencies = asNode().appendNode("dependencies")
-                    configurations.implementation.get().dependencies.forEach {
-                        if (it.group != null && "unspecified" != it.name && it.version != null) {
-                            val dependencyNode = dependencies.appendNode("dependency")
-                            dependencyNode.appendNode("groupId", it.group)
-                            dependencyNode.appendNode("artifactId", it.name)
-                            dependencyNode.appendNode("version", it.version)
+        publications {
+            register("gpr", MavenPublication::class) {
+                groupId = "dev.cappee"
+                artifactId = "carousel-android"
+                version = "1.2.3"
+                artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+                pom {
+                    withXml {
+                        val dependencies = asNode().appendNode("dependencies")
+                        configurations.implementation.get().dependencies.forEach {
+                            if (it.group != null && "unspecified" != it.name && it.version != null) {
+                                val dependencyNode = dependencies.appendNode("dependency")
+                                dependencyNode.appendNode("groupId", it.group)
+                                dependencyNode.appendNode("artifactId", it.name)
+                                dependencyNode.appendNode("version", it.version)
+                            }
                         }
                     }
                 }
