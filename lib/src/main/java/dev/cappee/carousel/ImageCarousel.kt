@@ -747,4 +747,13 @@ class ImageCarousel(
         initAutoPlay()
     }
 
+    // ----------------------------------------------------------------
+
+    /**
+     * Refresh adapter
+     */
+    fun notifyDataSetChanged() {
+        adapter?.notifyDataSetChanged()
+    }
+
 }
