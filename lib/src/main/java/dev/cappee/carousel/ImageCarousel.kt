@@ -752,8 +752,15 @@ class ImageCarousel(
     /**
      * Refresh adapter
      */
-    fun notifyDataSetChanged() {
-        adapter?.notifyDataSetChanged()
+    fun notifyDataSetChanged(data: List<CarouselItem>) {
+        adapter?.apply {
+            addAll(data)
+
+            this@ImageCarousel.data = data
+            this@ImageCarousel.dataSize = data.size
+
+            notifyDataSetChanged()
+        }
     }
 
 }
