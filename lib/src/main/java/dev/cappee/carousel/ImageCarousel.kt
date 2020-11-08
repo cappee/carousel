@@ -760,6 +760,7 @@ class ImageCarousel(
             this@ImageCarousel.dataSize = data.size
 
             notifyDataSetChanged()
+            currentPosition = 0
         }
     }
 

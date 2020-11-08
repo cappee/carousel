@@ -7,7 +7,7 @@ if (propsFile.exists()) {
     properties.load(FileInputStream(file("github.properties")))
 }
 
-val version = "1.2.7"
+val versionNumber = "1.2.8"
 
 plugins {
     id("com.android.library")
@@ -25,7 +25,7 @@ android {
         minSdkVersion(21)
         targetSdkVersion(30)
         versionCode(1)
-        versionName = version
+        versionName(versionNumber)
     }
 
     buildTypes {
@@ -73,7 +73,7 @@ if (propsFile.exists()) {
             register("gpr", MavenPublication::class) {
                 groupId = "dev.cappee"
                 artifactId = "carousel-android"
-                version = version
+                version = versionNumber
                 artifact("$buildDir/outputs/aar/${project.name}-release.aar")
                 pom {
                     withXml {
